@@ -2,17 +2,7 @@
 #
 # Copyright: Chad Skeeters 2016
 
-'''
-== Example usage ==
-
-[hooks]
-pretxnchangegroup.checktrailing = python:/path/to/checkws.py:checktrailing
-pretxncommit.checktrailing = python:/path/to/checkws.py:checktrailing
-
-pretxnchangegroup.checkdos = python:/path/to/checkws.py:checkdos
-pretxncommit.checkdos = python:/path/to/checkws.py:checkdos
-
-'''
+# See https://bitbucket.org/cskeeters/checkws for documentation
 
 import re
 
