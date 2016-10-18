@@ -20,6 +20,10 @@ def deleted(changectx, filepath):
 
     return False
 
+# Older versions of mercurial don't have filectx.isbinary
+def isbinary(filectx):
+    return '\0' in filectx.data()
+
 def has_dos(filectx):
     p=re.compile('\s+$', re.IGNORECASE)
 
@@ -64,7 +68,7 @@ def checktrailing(ui, repo, hooktype, node=None, **kwargs):
         for filename in change_ctx.files():
             if not deleted(change_ctx, filename):
                 filectx = change_ctx.filectx(filename)
-                if not filectx.isbinary():
+                if not isbinary(filectx):
                     #print("Checking changed text file %s" % filename)
                     if has_trailing(filectx):
                         abort = True
@@ -84,7 +88,7 @@ def checkdos(ui, repo, hooktype, node=None, **kwargs):
         for filename in change_ctx.files():
             if not deleted(change_ctx, filename):
                 filectx = change_ctx.filectx(filename)
-                if not filectx.isbinary():
+                if not isbinary(filectx):
                     #print("Checking changed text file %s" % filename)
                     if has_dos(filectx):
                         abort = True
